@@ -1,0 +1,12 @@
+{
+  "name": "frontend-blockchain-project-kbtg",
+  "displayName": "frontend-blockchain-project-kbtg",
+  "expo": {
+    "name": "frontend-blockchain-project-kbtg",
+    "slug": "frontend-blockchain-project-kbtg",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

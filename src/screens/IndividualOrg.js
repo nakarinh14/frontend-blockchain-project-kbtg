@@ -35,6 +35,10 @@ const SinglePost = ({ route }) => {
         setisLoading(false);
 
     }
+    const Donate = async () => {
+        // ....
+    }
+
     if (isLoading) {
         return (
             <View style={{ paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
@@ -62,9 +66,13 @@ const SinglePost = ({ route }) => {
                         <HTML
                             html={post[0].content.rendered}
                             imagesMaxWidth={Dimensions.get('window').width}
-
                         />
                     </Card.Content>
+                    <Button
+                        color="#3740FE"
+                        title="Donate"
+                        onPress={Donate}
+                    />
                 </Card>
             </ScrollView>
         );

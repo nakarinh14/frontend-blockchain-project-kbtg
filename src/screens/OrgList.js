@@ -3,10 +3,10 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Card, Paragraph, Title} from "react-native-paper";
 import TouchRipple from 'react-native-touch-ripple';
 
-export const OrgList = () => {
 
+export const OrgList = () => {
     return (
-        <View style={{alignItems: 'center', backgroundColor: '#506568', flex: 1}}>
+        <View style={{alignItems: 'center'}}>
             <ScrollView>
                 <Card style={styles.orgCard}>
                     <Card.Cover source={{uri: 'https://picsum.photos/id/273/200'}}/>
@@ -16,7 +16,7 @@ export const OrgList = () => {
                     </Card.Content>
                     <Card.Actions style={{justifyContent: 'flex-end'}}>
                         <TouchRipple rippleCentered={true} rippleContainerBorderRadius={100}>
-                            <Button color='#41c3ae'>See more</Button>
+                            <Button color='#01a74a'>See more</Button>
                         </TouchRipple>
                     </Card.Actions>
                 </Card>
@@ -28,7 +28,7 @@ export const OrgList = () => {
                     </Card.Content>
                     <Card.Actions style={{justifyContent: 'flex-end'}}>
                         <TouchRipple rippleCentered={true} rippleContainerBorderRadius={100}>
-                            <Button color='#41c3ae'>See more</Button>
+                            <Button color='#01a74a'>See more</Button>
                         </TouchRipple>
                     </Card.Actions>
                 </Card>
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
         shadowRadius: 6.27,
 
         elevation: 10,
-        margin: 10
+        margin: 10,
     },
 });

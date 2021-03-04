@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import {OrgList} from "./src/screens/OrgList";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 
 function PlaceholderScreen() {
     return (
@@ -33,13 +34,19 @@ export default function App() {
                   },
               })}
               tabBarOptions={{
-                  activeTintColor: '#41c3ae',
-                  inactiveTintColor: 'gray',
+                  activeTintColor: 'white',
+                  inactiveTintColor: '#A2C6B5',
+                  style: { backgroundColor: '#01a74a'}
               }}
           >
-              <Tab.Screen name="Home" component={OrgList}/>
-              <Tab.Screen name="Search" component={PlaceholderScreen}/>
+              <Tab.Screen name="Home" component={OrgList} style={styles.screen}/>
+              <Tab.Screen name="Search" component={PlaceholderScreen} style={styles.screen}/>
           </Tab.Navigator>
       </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+    screen: {
+    }
+});

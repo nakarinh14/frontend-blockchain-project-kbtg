@@ -1,30 +1,12 @@
 import React from 'react';
-import {Image, ScrollView, StyleSheet, View} from 'react-native';
-import {BottomNavigation, Button, Card, Paragraph, Text, Title} from "react-native-paper";
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {Button, Card, Paragraph, Title} from "react-native-paper";
 import TouchRipple from 'react-native-touch-ripple';
 
 export const OrgList = () => {
-    const MusicRoute = () => <Text>Music</Text>;
-
-    const AlbumsRoute = () => <Text>Albums</Text>;
-
-    const RecentsRoute = () => <Text>Recents</Text>;
-
-    const [index, setIndex] = React.useState(0);
-    const [routes] = React.useState([
-        { key: 'music', title: 'Music', icon: 'queue-music' },
-        { key: 'albums', title: 'Albums', icon: 'album' },
-        { key: 'recents', title: 'Recents', icon: 'history' },
-    ]);
-
-    const renderScene = BottomNavigation.SceneMap({
-        music: MusicRoute,
-        albums: AlbumsRoute,
-        recents: RecentsRoute,
-    });
 
     return (
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', backgroundColor: '#506568', flex: 1}}>
             <ScrollView>
                 <Card style={styles.orgCard}>
                     <Card.Cover source={{uri: 'https://picsum.photos/id/273/200'}}/>
@@ -34,7 +16,7 @@ export const OrgList = () => {
                     </Card.Content>
                     <Card.Actions style={{justifyContent: 'flex-end'}}>
                         <TouchRipple rippleCentered={true} rippleContainerBorderRadius={100}>
-                            <Button>See more</Button>
+                            <Button color='#41c3ae'>See more</Button>
                         </TouchRipple>
                     </Card.Actions>
                 </Card>
@@ -46,7 +28,7 @@ export const OrgList = () => {
                     </Card.Content>
                     <Card.Actions style={{justifyContent: 'flex-end'}}>
                         <TouchRipple rippleCentered={true} rippleContainerBorderRadius={100}>
-                            <Button>See more</Button>
+                            <Button color='#41c3ae'>See more</Button>
                         </TouchRipple>
                     </Card.Actions>
                 </Card>

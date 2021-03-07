@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {Animated,StyleSheet, View, Text, Button, Image, TouchableOpacity} from 'react-native';
 
@@ -29,12 +28,12 @@ const DisplayAnImage = () => {
                 />
                 <View style = {styles.textCont}>
                     <Text style={styles.textStyle}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus velit nulla, feugiat ut erat et,
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus velit nulla, feugiat ut erat et,
                     tempor mattis tortor. Phasellus fringilla fermentum imperdiet. Quisque aliquam auctor erat, ac
                         posuere ipsum gravida congue. Praesent luctus, quam in blandit tempor, dui nibh malesuada nulla,
                     id rhoncus metus tortor quis justo
                     tempor mattis tortor. Phasellus fringilla ferme
-                    tempor mattis tortor. Phasellus fringilla fermetempor mattis tortor. Phasellus fringilla ferme
+                    tempor mattis tortor. Phasellus fringilla fermetempor mattis tortor. Phasellus fringilla ferme"
                 </Text>
                 </View>
                     <Text style={{

@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 import { firebase } from "../firebase";
 import 'firebase/auth'
+import {AuthContext} from "../context/AuthContext";
 
-export const RegisterScreen = ({ navigation }) => {
+export const AddProfileScreen = ({ navigation, route }) => {
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [firstName, setFirstname] = useState("")
+    const [middleName, setMiddleName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    const registerUser = async () => {
-        if(email === '' && password === '') {
-            Alert.alert('Enter details to signup!')
-        } else {
-            try{
-                setIsLoading(true)
-                await firebase
-                    .auth()
-                    .createUserWithEmailAndPassword(email, password)
+    const user = useContext(AuthContext);
 
-                console.log('User registered successfully!')
-            } catch (error) {
-                setErrorMessage(error.message)
-            } finally {
-                setIsLoading(false)
-            }
+    const addProfile = async () => {
+        try{
+            setIsLoading(true)
+            await firebase.database().ref(`users/${user.uid}`).set({
+                firstName,
+                middleName,
+                lastName
+            })
+            console.log('User profile set succesxsfully!')
+            await route.callback()
+            // Let the stack navigator do its job to switch screen
+        } catch (error) {
+            setErrorMessage(error.message)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -41,30 +44,31 @@ export const RegisterScreen = ({ navigation }) => {
         <View style={styles.container}>
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Email"
-                value={email}
-                onChangeText={(val) => setEmail(val)}
+                placeholder="First Name"
+                value={firstName}
+                onChangeText={(val) => setFirstname(val)}
             />
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Password"
-                value={password}
-                onChangeText={(val) => setPassword(val)}
+                placeholder="Middle Name"
+                value={middleName}
+                onChangeText={(val) => setMiddleName(val)}
+            />
+            <TextInput
+                style={styles.inputStyle}
+                placeholder="Last Name"
+                value={lastName}
+                onChangeText={(val) => setLastName(val)}
                 maxLength={15}
                 secureTextEntry={true}
             />
             <Button
                 color="#3740FE"
-                title="Signup"
-                onPress={registerUser}
+                title="Submit"
+                onPress={addProfile}
             />
             <Text>
                 {errorMessage}
-            </Text>
-            <Text
-                style={styles.loginText}
-                onPress={() => navigation.navigate('Login')}>
-                Already Registered? Click here to login
             </Text>
         </View>
     );

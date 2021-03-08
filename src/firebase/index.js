@@ -26,3 +26,4 @@ console.log(firebaseConfig)
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 export { firebase };
+

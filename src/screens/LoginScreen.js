@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } f
 import { firebase } from "../firebase";
 import 'firebase/auth'
 
-export const RegisterScreen = ({ navigation }) => {
+export const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    const registerUser = async () => {
+    const signIn = async () => {
         if(email === '' && password === '') {
             Alert.alert('Enter details to signup!')
         } else {
@@ -18,8 +18,7 @@ export const RegisterScreen = ({ navigation }) => {
                 setIsLoading(true)
                 await firebase
                     .auth()
-                    .createUserWithEmailAndPassword(email, password)
-                return navigation.replace('Profile')
+                    .signInWithEmailAndPassword(email, password)
             } catch (error) {
                 setErrorMessage(error.message)
                 setIsLoading(false)
@@ -48,21 +47,15 @@ export const RegisterScreen = ({ navigation }) => {
                 placeholder="Password"
                 value={password}
                 onChangeText={(val) => setPassword(val)}
-                maxLength={15}
                 secureTextEntry={true}
             />
             <Button
                 color="#3740FE"
-                title="Sign Up"
-                onPress={registerUser}
+                title="Sign In"
+                onPress={signIn}
             />
             <Text>
                 {errorMessage}
-            </Text>
-            <Text
-                style={styles.loginText}
-                onPress={() => navigation.navigate('Login')}>
-                Already Registered? Click here to login
             </Text>
         </View>
     );

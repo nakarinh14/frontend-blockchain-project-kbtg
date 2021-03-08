@@ -1,14 +1,16 @@
 import React  from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {HomeNavigator} from "../navigation/HomeNavigator";
-
+import {firebase} from "../firebase";
+import 'firebase/auth'
 const Tab = createBottomTabNavigator();
 
 function PlaceholderScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Button title={"logout"} onPress={() => firebase.auth().signOut()} />
             <Text>PLACEHOLDER</Text>
         </View>
     );

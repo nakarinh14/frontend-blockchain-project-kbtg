@@ -1,30 +1,28 @@
-import React, { Component } from 'react';
-import {Animated,StyleSheet, View, Text, Button, Image, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {Animated, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 
-const DisplayAnImage = () => {
-    TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
-    const AppButton = ({ onPress, title }) => (
-        <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-            <Text style={styles.appButtonText}>{title}</Text>
-        </TouchableOpacity>
-    );
+TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
+
+const AppButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+        <Text style={styles.appButtonText}>{title}</Text>
+    </TouchableOpacity>
+);
+
+const DisplayAnImage = ({ navigation }) => {
 
     const org = require('../Photos/org1.png');
     const logo = require('../Photos/org1_log.png')
     return (
+        <ScrollView>
             <View style={styles.container}>
-
                 <Image
                     style={styles.image}
-                    source={
-                        org
-                    }
+                    source={org}
                 />
                 <Image
                     style={styles.imageOrg}
-                    source={
-                        logo
-                    }
+                    source={logo}
                 />
                 <View style = {styles.textCont}>
                     <Text style={styles.textStyle}>
@@ -42,22 +40,28 @@ const DisplayAnImage = () => {
                         right : 50,
                         fontWeight: "bold",
                         fontSize: 16,
-                    }}>Construction</Text>
-                    <AppButton title="Donate" size="sm" backgroundColor="#007bff" />
+                    }}>
+                        Construction
+                    </Text>
+                    <AppButton title="Donate" size="sm" backgroundColor="#007bff" onPress={() => navigation.push('DonateInitial')} />
                     <View style={styles.progressBar}>
                         <Animated.View style={styles.animate}/>
                     </View>
                     <Text style={{
                         bottom: -130,
                         right : 50,
-                    }}>50%</Text>
+                    }}>
+                        50%
+                    </Text>
                 <Text style={{
                     alignItems: 'center',
                     bottom: -140,
                     right : 50,
                     fontWeight: "bold",
                     fontSize: 16,
-                }}>Food</Text>
+                }}>
+                    Food
+                </Text>
                 <AppButton title="Donate" size="sm" backgroundColor="#007bff" />
                 <View style={styles.progressBar_2}>
                     <Animated.View style={styles.animate_2}/>
@@ -65,9 +69,12 @@ const DisplayAnImage = () => {
                 <Text style={{
                     bottom: -130,
                     right : 50,
-                }}>90%</Text>
+                }}>
+                    90%
+                </Text>
             </View>
-        );
+        </ScrollView>
+    );
 }
 
 export default DisplayAnImage;

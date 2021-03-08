@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {AuthContext} from "./context/AuthContext"
 import {firebase} from "./firebase";
 import 'firebase/auth'
@@ -12,10 +12,10 @@ export default function App() {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        const listener=  firebase.auth().onAuthStateChanged((user) => {
+         // unsubscribe on unmount
+        return firebase.auth().onAuthStateChanged((user) => {
             setUser(user);
-        }); // unsubscribe on unmount
-        return listener
+        })
     }, []);
 
     return (
@@ -26,7 +26,7 @@ export default function App() {
                     <AuthNavigator />
                 </NavigationContainer>
             </AuthContext.Provider>
-            <Button title={"logout"} onPress={() => firebase.auth().signOut()} />
+            {/*<Button title={"logout"} onPress={() => firebase.auth().signOut()} />*/}
         </>
     );
 }

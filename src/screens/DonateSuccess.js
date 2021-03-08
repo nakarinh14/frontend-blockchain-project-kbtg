@@ -11,7 +11,7 @@ const data = {
     cause: "Roof Fixing"
 }
 
-export const DonateSuccess = ({from, to, timestamp, amount, cause}) => {
+export const DonateSuccess = ({navigation}) => {
 
     return (
         <View style={styles.container}>
@@ -48,6 +48,14 @@ export const DonateSuccess = ({from, to, timestamp, amount, cause}) => {
                 <Divider />
                 <View style={styles.keyView}>
                     <View>
+                        <Text style={styles.keyText}>Cause</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.valText}>{data.cause}</Text>
+                    </View>
+                </View>
+                <View style={styles.keyView}>
+                    <View>
                         <Text style={styles.keyText}>Amount</Text>
                     </View>
                     <View>
@@ -55,14 +63,6 @@ export const DonateSuccess = ({from, to, timestamp, amount, cause}) => {
                     </View>
                 </View>
                 <Divider />
-                <View style={styles.keyView}>
-                    <View>
-                        <Text style={styles.keyText}>Cause</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.valText}>{data.cause}</Text>
-                    </View>
-                </View>
             </View>
         </View>
 

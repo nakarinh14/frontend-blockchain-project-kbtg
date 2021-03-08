@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator } from 'react-native';
 import { firebase } from "../firebase";
 import 'firebase/auth'
 import {AuthContext} from "../context/AuthContext";
+import {ProfileContext} from "../context/ProfileContext";
 
-export const AddProfileScreen = ({ navigation, route }) => {
+export const AddProfileScreen = ({ navigation }) => {
 
     const [firstName, setFirstname] = useState("")
     const [middleName, setMiddleName] = useState("")
@@ -13,6 +14,7 @@ export const AddProfileScreen = ({ navigation, route }) => {
     const [errorMessage, setErrorMessage] = useState('')
 
     const user = useContext(AuthContext);
+    const setProfile = useContext(ProfileContext);
 
     const addProfile = async () => {
         try{
@@ -21,9 +23,8 @@ export const AddProfileScreen = ({ navigation, route }) => {
                 firstName,
                 middleName,
                 lastName
-            })
-            console.log('User profile set succesxsfully!')
-            await route.callback()
+            });
+            await setProfile();
             // Let the stack navigator do its job to switch screen
         } catch (error) {
             setErrorMessage(error.message)
@@ -59,8 +60,6 @@ export const AddProfileScreen = ({ navigation, route }) => {
                 placeholder="Last Name"
                 value={lastName}
                 onChangeText={(val) => setLastName(val)}
-                maxLength={15}
-                secureTextEntry={true}
             />
             <Button
                 color="#3740FE"

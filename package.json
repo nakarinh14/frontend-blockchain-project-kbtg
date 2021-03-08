@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
-    "@react-navigation/stack": "^5.14.3",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.9.3",
+    "@react-navigation/stack": "^5.14.3",
     "expo": "~40.0.0",
     "expo-splash-screen": "~0.8.0",
     "expo-status-bar": "~1.0.3",
@@ -23,6 +23,7 @@
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
     "react-native-dotenv": "^2.5.3",
+    "react-native-elements": "^3.2.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-image-placeholder": "^1.0.14",
     "react-native-splash-screen": "^3.2.0",

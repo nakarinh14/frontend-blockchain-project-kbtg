@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import {OrgList} from "./OrgList";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {DonateSuccess} from "./DonateSuccess";
+import {DonateInitial} from "./DonateInitial";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +41,7 @@ export const Dummy = ({ navigation }) => {
             }}
         >
             <Tab.Screen name="Home" component={OrgList} style={styles.screen}/>
-            <Tab.Screen name="Search" component={PlaceholderScreen} style={styles.screen}/>
+            <Tab.Screen name="Search" component={DonateInitial} style={styles.screen}/>
         </Tab.Navigator>
     );
 

@@ -15,6 +15,11 @@ export const DonateInitial = ({navigation}) => {
 
     const [donationAmount, setDonationAmount] = useState("0.00")
 
+    const onClickDonate = () => {
+        if(validateDecimal(donationAmount)){
+            navigation.replace('DonateSuccess')
+        }
+    }
     return (
         <DismissKeyboard>
             <View style={styles.container}>
@@ -67,7 +72,7 @@ export const DonateInitial = ({navigation}) => {
                     <Button
                         mode="outlined"
                         icon="heart"
-                        onPress={() => navigation.replace('DonateSuccess')}
+                        onPress={onClickDonate}
                     >
                         Donate
                     </Button>

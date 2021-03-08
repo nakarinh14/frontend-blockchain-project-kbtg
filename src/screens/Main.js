@@ -1,10 +1,8 @@
 import React  from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {OrgList} from "./OrgList";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {DonateSuccess} from "./DonateSuccess";
-import {DonateInitial} from "./DonateInitial";
+import {HomeNavigator} from "../navigation/HomeNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +14,7 @@ function PlaceholderScreen() {
     );
 }
 
-export const Dummy = ({ navigation }) => {
+export const Main = ({ navigation }) => {
 
     return (
         <Tab.Navigator
@@ -26,10 +24,11 @@ export const Dummy = ({ navigation }) => {
 
                     if (route.name === 'Home') {
                         iconName = 'home';
-                    } else if (route.name === 'Search') {
+                    } else if (route.name === 'Transactions') {
                         iconName = 'search';
+                    } else if (route.name === 'User') {
+                        iconName = 'person-outline'
                     }
-
                     // You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
@@ -40,8 +39,9 @@ export const Dummy = ({ navigation }) => {
                 style: { backgroundColor: '#01a74a'}
             }}
         >
-            <Tab.Screen name="Home" component={OrgList} style={styles.screen}/>
-            <Tab.Screen name="Search" component={DonateInitial} style={styles.screen}/>
+            <Tab.Screen name="Home" component={HomeNavigator} style={styles.screen}/>
+            <Tab.Screen name="Transactions" component={PlaceholderScreen} style={styles.screen}/>
+            <Tab.Screen name="User" component={PlaceholderScreen} style={styles.screen}/>
         </Tab.Navigator>
     );
 

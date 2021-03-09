@@ -26,7 +26,7 @@ export default function App() {
                     <AuthNavigator />
                 </NavigationContainer>
             </AuthContext.Provider>
-            <Button title={"logout"} onPress={() => firebase.auth().signOut()} />
+            {/*<Button title={"logout"} onPress={() => firebase.auth().signOut()} />*/}
         </>
     );
 }

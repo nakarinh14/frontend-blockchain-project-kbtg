@@ -22,7 +22,7 @@ export const AddProfileScreen = ({ navigation, route }) => {
                 middleName,
                 lastName
             })
-            console.log('User profile set succesxsfully!')
+            console.log('User profile set successfully!')
             await route.callback()
             // Let the stack navigator do its job to switch screen
         } catch (error) {

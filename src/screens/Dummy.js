@@ -23,9 +23,9 @@ export const Dummy = ({ navigation }) => {
                     let iconName;
 
                     if (route.name === 'Home') {
-                        iconName = 'home';
-                    } else if (route.name === 'Search') {
-                        iconName = 'search';
+                        iconName = 'ios-home';
+                    } else if (route.name === 'Profile') {
+                        iconName = 'ios-person-circle';
                     }
 
                     // You can return any component that you like here!
@@ -39,7 +39,7 @@ export const Dummy = ({ navigation }) => {
             }}
         >
             <Tab.Screen name="Home" component={OrgList} style={styles.screen}/>
-            <Tab.Screen name="Search" component={PlaceholderScreen} style={styles.screen}/>
+            <Tab.Screen name="Profile" component={PlaceholderScreen} style={styles.screen}/>
         </Tab.Navigator>
     );
 

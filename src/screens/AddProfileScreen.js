@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator } from 'react-native';
-import { firebase } from "../firebase";
-import 'firebase/auth'
-import {AuthContext} from "../context/AuthContext";
 import {ProfileContext} from "../context/ProfileContext";
+import axios from 'axios';
+import { firebase } from '../firebase'
+import 'firebase/auth'
+import {
+    BACKEND_URL
+} from '@env'
 
-export const AddProfileScreen = ({ navigation }) => {
+export const AddProfileScreen = () => {
 
     const [firstName, setFirstname] = useState("")
     const [middleName, setMiddleName] = useState("")
@@ -13,17 +16,18 @@ export const AddProfileScreen = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    const user = useContext(AuthContext);
     const setProfile = useContext(ProfileContext);
 
     const addProfile = async () => {
         try{
             setIsLoading(true)
-            await firebase.database().ref(`users/${user.uid}`).set({
-                firstName,
-                middleName,
-                lastName
-            });
+            const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+            await axios.post(`${BACKEND_URL}/auth/register`, {
+                token_access: idToken,
+                firstname: firstName,
+                lastname: lastName
+            })
+
             await setProfile();
             // Let the stack navigator do its job to switch screen
         } catch (error) {

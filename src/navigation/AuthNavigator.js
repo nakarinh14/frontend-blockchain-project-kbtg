@@ -15,6 +15,8 @@ const getProfile = async (setProfileExist, uid) => {
     if(uid){
         const snapshot = await firebase.database().ref(`users/${uid}`).once('value')
         setProfileExist(snapshot.exists())
+    } else {
+        setProfileExist(false)
     }
 }
 

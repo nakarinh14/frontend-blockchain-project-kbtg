@@ -3,16 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import {OrgList} from "./OrgList";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {UserProfile} from "./UserProfile";
 
 const Tab = createBottomTabNavigator();
-
-function PlaceholderScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>PLACEHOLDER</Text>
-        </View>
-    );
-}
 
 export const Dummy = ({ navigation }) => {
 
@@ -39,7 +32,7 @@ export const Dummy = ({ navigation }) => {
             }}
         >
             <Tab.Screen name="Home" component={OrgList} style={styles.screen}/>
-            <Tab.Screen name="Profile" component={PlaceholderScreen} style={styles.screen}/>
+            <Tab.Screen name="Profile" component={UserProfile} style={styles.screen}/>
         </Tab.Navigator>
     );
 

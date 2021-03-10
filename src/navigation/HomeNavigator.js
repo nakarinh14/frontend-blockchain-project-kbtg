@@ -5,6 +5,7 @@ import {DonateInitial} from "../screens/DonateInitial";
 import {DonateSuccess} from "../screens/DonateSuccess";
 import {OrgList} from "../screens/OrgList";
 import IndividualOrg from "../screens/IndividualOrg";
+import {DonateHistory} from "../screens/DonateHistory"
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export const HomeNavigator = () => {
             <Stack.Screen name="IndividualOrg" component={IndividualOrg}/>
             <Stack.Screen name="DonateInitial" component={DonateInitial}/>
             <Stack.Screen name="DonateSuccess" component={DonateSuccess}/>
+            <Stack.Screen name="DonateHistory" component={DonateHistory}/>
         </Stack.Navigator>
     )
 }

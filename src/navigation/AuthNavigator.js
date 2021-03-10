@@ -11,41 +11,47 @@ import {LoginScreen} from "../screens/LoginScreen";
 
 const Stack = createStackNavigator();
 
-const getProfile = async (setProfileExist, uid) => {
+const getProfile = async (setProfile, uid) => {
     if(uid){
         const snapshot = await firebase.database().ref(`users/${uid}`).once('value')
-        setProfileExist(snapshot.exists())
+        setProfile(snapshot.val())
     } else {
-        setProfileExist(false)
+        setProfile(false)
     }
 }
 
 export const AuthNavigator = () => {
     const user = useContext(AuthContext);
-    const [profileExist, setProfileExist] = useState(false)
+    const [profile, setProfile] = useState(false)
+
+    const uid = user ? user.uid : null
 
     useEffect(() => {
-        getProfile(setProfileExist, user?.id)
+        getProfile(setProfile, uid)
     }, [user])
 
+    const profileData = {
+        getter: profile,
+        setter: () => getProfile(setProfile, uid)
+    }
+
     return (
-        <ProfileContext.Provider value={() => getProfile(setProfileExist, user?.uid)}>
-            <Stack.Navigator>
+        <ProfileContext.Provider value={profileData}>
+
                 {
-                    user && profileExist ? (
-                        <Stack.Screen name="Main" component={Main} />
+                    user && profile ? (
+                        <Main />
                     ) : (
-                        <>
+                        <Stack.Navigator>
                             <Stack.Screen name="Register" component={RegisterScreen} />
                             <Stack.Screen name="Profile"
                                           component={AddProfileScreen}
                                           options={{ title: 'Add Profile' }}
                             />
                             <Stack.Screen name="Login" component={LoginScreen} />
-                        </>
+                        </Stack.Navigator>
                     )
                 }
-            </Stack.Navigator>
         </ProfileContext.Provider>
     )
 }

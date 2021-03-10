@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet} from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import {AuthContext} from "./context/AuthContext"
 import {NavigationContainer} from "@react-navigation/native";
 import {AuthNavigator} from "./navigation/AuthNavigator";
@@ -19,14 +20,14 @@ export default function App() {
     }, []);
 
     return (
-        <>
+        <PaperProvider>
             <StatusBar style="auto"/>
             <AuthContext.Provider value={user}>
                 <NavigationContainer>
                     <AuthNavigator />
                 </NavigationContainer>
             </AuthContext.Provider>
-        </>
+        </PaperProvider>
     );
 }
 

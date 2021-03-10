@@ -16,7 +16,7 @@ export const AddProfileScreen = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    const setProfile = useContext(ProfileContext);
+    const { setter } = useContext(ProfileContext);
 
     const addProfile = async () => {
         try{
@@ -28,11 +28,10 @@ export const AddProfileScreen = () => {
                 lastname: lastName
             })
 
-            await setProfile();
+            setter();
             // Let the stack navigator do its job to switch screen
         } catch (error) {
             setErrorMessage(error.message)
-        } finally {
             setIsLoading(false)
         }
     }

@@ -1,10 +1,12 @@
 import React  from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {HomeNavigator} from "../navigation/HomeNavigator";
+import {UserProfile} from "./UserProfile";
 import {firebase} from "../firebase";
 import 'firebase/auth'
+
 const Tab = createBottomTabNavigator();
 
 function PlaceholderScreen() {
@@ -15,6 +17,7 @@ function PlaceholderScreen() {
         </View>
     );
 }
+
 
 export const Main = ({ navigation }) => {
 
@@ -43,7 +46,7 @@ export const Main = ({ navigation }) => {
         >
             <Tab.Screen name="Home" component={HomeNavigator} style={styles.screen}/>
             <Tab.Screen name="Transactions" component={PlaceholderScreen} style={styles.screen}/>
-            <Tab.Screen name="User" component={PlaceholderScreen} style={styles.screen}/>
+            <Tab.Screen name="User" component={UserProfile} style={styles.screen}/>
         </Tab.Navigator>
     );
 

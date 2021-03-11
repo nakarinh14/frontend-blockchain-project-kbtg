@@ -164,11 +164,11 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
     },
     keyText: {
-        fontSize: 19,
+        fontSize: 18,
         fontWeight: "500"
     },
     valText: {
-        fontSize: 19
+        fontSize: 18
     },
     keyView: {
         marginVertical: 13,

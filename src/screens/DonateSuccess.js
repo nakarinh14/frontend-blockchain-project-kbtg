@@ -125,11 +125,11 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     keyText: {
-        fontSize: 19,
+        fontSize: 18,
         fontWeight: "500"
     },
     valText: {
-        fontSize: 19
+        fontSize: 18
     },
     keyView: {
         marginVertical: 10,

@@ -26,9 +26,7 @@ export const DonateHistoryRework = ({}) => {
     }
 
     const scrollRefresh = async () => {
-        setRefreshing(true)
         await fetchHistory()
-        setRefreshing(false)
     }
 
     const onPressChip = async (txId) => {
@@ -43,6 +41,7 @@ export const DonateHistoryRework = ({}) => {
     }
     useEffect(() => {
         fetchHistory()
+        setRefreshing(false)
     }, [])
 
     if(isLoading){
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#F5F5F5',
     },
     card: {
         marginTop: 10,

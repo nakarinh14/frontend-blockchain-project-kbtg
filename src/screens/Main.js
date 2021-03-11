@@ -6,13 +6,16 @@ import {HomeNavigator} from "../navigation/HomeNavigator";
 import {UserProfile} from "./UserProfile";
 import {firebase} from "../firebase";
 import 'firebase/auth'
+import {DonateHistory} from "./DonateHistory"
 
 const Tab = createBottomTabNavigator();
 
-function PlaceholderScreen() {
+function PlaceholderScreen({navigation}) {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Button title={"logout"} onPress={() => firebase.auth().signOut()} />
+            <Button title={"History"} onPress={() => navigation.navigate(DonateHistory) } />
+
             <Text>PLACEHOLDER</Text>
         </View>
     );

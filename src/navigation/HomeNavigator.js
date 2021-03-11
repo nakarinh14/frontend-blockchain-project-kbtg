@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {AuthContext} from "../context/AuthContext";
 import {DonateInitial} from "../screens/DonateInitial";
 import {DonateSuccess} from "../screens/DonateSuccess";
 import {OrgList} from "../screens/OrgList";
 import IndividualOrg from "../screens/IndividualOrg";
+import {DonateHistoryRework} from "../screens/DonateHistoryRework"
 
 const Stack = createStackNavigator();
 
@@ -20,6 +20,7 @@ export const HomeNavigator = () => {
             <Stack.Screen name="Detail" component={IndividualOrg}/>
             <Stack.Screen name="Donate" component={DonateInitial}/>
             <Stack.Screen name="Success" component={DonateSuccess}/>
+            <Stack.Screen name="DonateHistory" component={DonateHistoryRework}/>
         </Stack.Navigator>
     )
 }

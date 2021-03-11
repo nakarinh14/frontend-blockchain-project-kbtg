@@ -5,13 +5,10 @@ import { CheckBox } from 'react-native-elements'
 import {DismissKeyboard} from "../components/DismissKeyboard";
 import {Input} from "react-native-elements";
 import {regexCheckDecimal, validateDecimal} from "../utils/decimal-check"
-import axios from "axios";
-import {firebase} from "../firebase";
-import {
-    BACKEND_URL
-} from '@env'
 import {DepositModal} from "../components/DepositModal";
 import {ProfileContext} from "../context/ProfileContext";
+import {donateAPI, getBalanceAPI} from "../utils/api";
+import {AuthContext} from "../context/AuthContext";
 
 
 const data = {
@@ -29,6 +26,7 @@ export const DonateInitial = ({navigation, route}) => {
     const [depositVisible, setDepositVisible] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
 
+    const user = useContext(AuthContext)
     const { getter } = useContext(ProfileContext)
     const {firstname, lastname} = getter
 
@@ -36,35 +34,25 @@ export const DonateInitial = ({navigation, route}) => {
         setDepositVisible(true)
     }
 
-    const validateBalance = async () => {
-        const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
-        const res = await axios.post(`${BACKEND_URL}/api/balance`, {
-                token_access: idToken,
-        })
-        return res.data.balance;
+    const fetchBalance = async () => {
+        const idToken = await user.getIdToken(/* forceRefresh */ true)
+        return await getBalanceAPI(idToken)
     }
 
     const initiateDonation = async () => {
 
         try{
             setDonationLoading(true)
-            const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
-            const balance = await validateBalance()
-
+            // Validate balance, if not enough then initiate deposit modal
+            const balance = await fetchBalance()
             if(parseFloat(balance) < parseFloat(donationAmount)) {
                 setDonationLoading(false)
                 return triggerDeposit()
             }
-
-            const res = await axios.post(`${BACKEND_URL}/api/donor/donate`, {
-                token_access: idToken,
-                amount: donationAmount,
-                recipient: org,
-                cause,
-                tax_reduction: checked
-            })
-
-            return navigation.replace('Success', {data: res.data.result})
+            // Else, proceed the donation process
+            const idToken = await user.getIdToken(/* forceRefresh */ true)
+            const res = await donateAPI(idToken, donationAmount, org, cause, checked)
+            return navigation.replace('Success', {data: res})
         } catch (err){
             console.log(err)
             setDonationLoading(false)
@@ -72,10 +60,9 @@ export const DonateInitial = ({navigation, route}) => {
     }
 
     const onClickDonate = () => {
-        if(!validateDecimal(donationAmount)){
-            return
+        if(validateDecimal(donationAmount)){
+            return initiateDonation()
         }
-        return initiateDonation()
     }
 
 
@@ -122,8 +109,8 @@ export const DonateInitial = ({navigation, route}) => {
                                     value={donationAmount}
                                     keyboardType={"decimal-pad"}
                                     onChangeText={(text) => regexCheckDecimal(text, setDonationAmount)}
-                                    leftIcon={
-                                        <Text>฿</Text>
+                                    rightIcon={
+                                        <Text>TOKENS</Text>
                                     }
                                 />
                         </View>

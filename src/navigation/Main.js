@@ -1,25 +1,22 @@
 import React  from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {HomeNavigator} from "../navigation/HomeNavigator";
-import {UserProfile} from "./UserProfile";
-import {firebase} from "../firebase";
-import 'firebase/auth'
+import {HomeNavigator} from "./HomeNavigator";
+import {ProfileNavigator} from "./ProfileNavigator";
 
 const Tab = createBottomTabNavigator();
 
 function PlaceholderScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Button title={"logout"} onPress={() => firebase.auth().signOut()} />
             <Text>PLACEHOLDER</Text>
         </View>
     );
 }
 
 
-export const Main = ({ navigation }) => {
+export const Main = () => {
 
     return (
         <Tab.Navigator
@@ -48,7 +45,7 @@ export const Main = ({ navigation }) => {
         >
             <Tab.Screen name="Explore" component={HomeNavigator} style={styles.screen}/>
             <Tab.Screen name="Transactions" component={PlaceholderScreen} style={styles.screen}/>
-            <Tab.Screen name="User" component={UserProfile} style={styles.screen}/>
+            <Tab.Screen name="User" component={ProfileNavigator} style={styles.screen}/>
         </Tab.Navigator>
     );
 

@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator } from 'react-native';
 import {ProfileContext} from "../context/ProfileContext";
-import axios from 'axios';
-import { firebase } from '../firebase'
-import 'firebase/auth'
-import {
-    BACKEND_URL
-} from '@env'
+import {addProfileAPI} from "../utils/api";
+import {AuthContext} from "../context/AuthContext";
 
 export const AddProfileScreen = () => {
+    const { setter } = useContext(ProfileContext);
+    const user = useContext(AuthContext)
 
     const [firstName, setFirstname] = useState("")
     const [middleName, setMiddleName] = useState("")
@@ -16,20 +14,13 @@ export const AddProfileScreen = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    const { setter } = useContext(ProfileContext);
-
     const addProfile = async () => {
         try{
             setIsLoading(true)
-            const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
-            await axios.post(`${BACKEND_URL}/auth/register`, {
-                token_access: idToken,
-                firstname: firstName,
-                lastname: lastName
-            })
-
-            setter();
+            const idToken = await user.getIdToken(/* forceRefresh */ true)
+            await addProfileAPI(idToken, firstName, lastName)
             // Let the stack navigator do its job to switch screen
+            setter();
         } catch (error) {
             setErrorMessage(error.message)
             setIsLoading(false)

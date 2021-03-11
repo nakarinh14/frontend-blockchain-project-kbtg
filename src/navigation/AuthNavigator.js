@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {AuthContext} from "../context/AuthContext";
 import {RegisterScreen} from "../screens/RegisterScreen";
-import {Main} from "../screens/Main";
+import {Main} from "./Main";
 import {firebase} from "../firebase";
 import {AddProfileScreen} from "../screens/AddProfileScreen";
 import {ProfileContext} from "../context/ProfileContext";

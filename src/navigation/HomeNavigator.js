@@ -1,12 +1,12 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {DonateInitial} from "../screens/DonateInitial";
 import {DonateSuccess} from "../screens/DonateSuccess";
 import {OrgList} from "../screens/OrgList";
 import IndividualOrg from "../screens/IndividualOrg";
 import {DonateHistoryRework} from "../screens/DonateHistoryRework"
+import {createNativeStackNavigator} from "react-native-screens/native-stack";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const HomeNavigator = () => {
     return (

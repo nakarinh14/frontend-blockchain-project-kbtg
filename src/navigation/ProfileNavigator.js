@@ -1,10 +1,10 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {DonateHistoryRework} from "../screens/DonateHistoryRework"
 import {UserProfile} from "../screens/UserProfile";
 import {DepositScreen} from "../screens/DepositScreen";
+import {createNativeStackNavigator} from "react-native-screens/native-stack";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const ProfileNavigator = () => {
     return (
@@ -12,8 +12,8 @@ export const ProfileNavigator = () => {
             screenOptions={{
                 headerTitleStyle: {color:'black'},
                 headerTintColor: '#028544',
+                stackPresentation:"formSheet"
             }}
-            mode="modal"
         >
             <Stack.Screen name="Profile" component={UserProfile} />
             <Stack.Screen name="History" component={DonateHistoryRework} />

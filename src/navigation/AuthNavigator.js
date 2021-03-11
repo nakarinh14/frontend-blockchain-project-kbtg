@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {AuthContext} from "../context/AuthContext";
 import {RegisterScreen} from "../screens/RegisterScreen";
 import {Main} from "./Main";
@@ -7,9 +6,9 @@ import {firebase} from "../firebase";
 import {AddProfileScreen} from "../screens/AddProfileScreen";
 import {ProfileContext} from "../context/ProfileContext";
 import {LoginScreen} from "../screens/LoginScreen";
+import {createNativeStackNavigator} from "react-native-screens/native-stack";
 
-
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const getProfile = async (setProfile, uid) => {
     if(uid){

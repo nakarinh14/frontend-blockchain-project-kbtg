@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 import {StatusBar} from 'expo-status-bar';
-import {StyleSheet} from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {AuthContext} from "./context/AuthContext"
 import {NavigationContainer} from "@react-navigation/native";
@@ -31,8 +32,3 @@ export default function App() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});

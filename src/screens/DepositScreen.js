@@ -1,7 +1,7 @@
-import {Portal, Text, Button, Snackbar} from "react-native-paper";
+import {Text, Button, Snackbar} from "react-native-paper";
 import React, {useContext, useState} from "react";
 import {ScrollView, StyleSheet, View} from "react-native";
-import {regexCheckDecimal} from "../utils/decimal-check";
+import {regexCheckDecimal, validateDecimal} from "../utils/decimal-check";
 import {Input} from "react-native-elements";
 import {depositAPI} from "../utils/api";
 import {AuthContext} from "../context/AuthContext";
@@ -29,34 +29,39 @@ export const DepositScreen = () => {
         }
     }
 
+    const onClickDeposit = () => {
+        if(validateDecimal(depositAmount)){
+            return deposit()
+        }
+    }
+
     return (
         <ScrollView style={styles.container}>
-            <Portal>
-                <Snackbar
-                    style={styles.snackbar}
-                    visible={visible}
-                    onDismiss={onDismissSnackBar}
-                    action={{
-                        label: 'OK',
-                        onPress: () => {},
-                    }}>
-                    {parseFloat(depositAmount).toFixed(2)} tokens are successfully deposited.
-                </Snackbar>
-            </Portal>
+            <Snackbar
+                style={styles.snackbar}
+                visible={visible}
+                onDismiss={onDismissSnackBar}
+                action={{
+                    label: 'OK',
+                    onPress: () => {},
+                }}>
+                {parseFloat(depositAmount).toFixed(2)} tokens are successfully deposited.
+            </Snackbar>
+
             <View style={styles.innerContainer}>
                 <Text style={styles.caption}>Deposit Money</Text>
                 <Input
                     label='Amount'
                     value={depositAmount}
                     keyboardType={"decimal-pad"}
-                    onChangeText={(text) => setDepositAmount(text)}
+                    onChangeText={(text) => regexCheckDecimal(text, setDepositAmount)}
                     leftIcon={
                         <Text>฿</Text>
                     }
                 />
                 <Button
                     mode="outlined"
-                    onPress={deposit}
+                    onPress={onClickDeposit}
                     loading={isLoading}
                     icon='database-plus'
                     color='#1976D2'
@@ -102,6 +107,6 @@ const styles = StyleSheet.create({
     },
     snackbar: {
         backgroundColor: '#66BB6A',
-        bottom: '20%'
+        top: '90%'
     }
 });

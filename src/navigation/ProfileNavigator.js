@@ -12,12 +12,15 @@ export const ProfileNavigator = () => {
             screenOptions={{
                 headerTitleStyle: {color:'black'},
                 headerTintColor: '#028544',
-                stackPresentation:"formSheet"
             }}
         >
             <Stack.Screen name="Profile" component={UserProfile} />
             <Stack.Screen name="History" component={DonateHistoryRework} />
-            <Stack.Screen name="Deposit" component={DepositScreen} />
+            <Stack.Screen
+                name="Deposit"
+                component={DepositScreen}
+                options={{stackPresentation:"modal"}}
+            />
         </Stack.Navigator>
     )
 }

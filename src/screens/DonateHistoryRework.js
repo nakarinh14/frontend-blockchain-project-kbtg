@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, Text, RefreshControl, Linking, Alert} from 'react-native';
+import {StyleSheet, View, ScrollView, Text, RefreshControl, Linking, ActivityIndicator} from 'react-native';
 import {Chip} from "react-native-paper";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {AuthContext} from "../context/AuthContext";
@@ -8,12 +8,21 @@ import {getTransactionHistory} from "../utils/api";
 export const DonateHistoryRework = ({}) => {
     const user = useContext(AuthContext)
 
+    const [isLoading, setIsLoading] = useState(true)
     const [data, setData] = useState([])
     const [refreshing, setRefreshing] = useState(false);
 
     const fetchHistory = async () => {
-        const res = await getTransactionHistory(user.uid)
-        setData(res)
+        try{
+            setIsLoading(true)
+            const res = await getTransactionHistory(user.uid)
+            setData(res)
+        } catch (err){
+            console.log(err)
+        } finally {
+            setIsLoading(false)
+        }
+
     }
 
     const scrollRefresh = async () => {
@@ -36,7 +45,13 @@ export const DonateHistoryRework = ({}) => {
         fetchHistory()
     }, [])
 
-
+    if(isLoading){
+        return(
+            <View style={styles.preloader}>
+                <ActivityIndicator size="large" color="#9E9E9E"/>
+            </View>
+        )
+    }
 
     return (
         <ScrollView
@@ -120,5 +135,15 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontWeight: '500',
         color: '#757575'
+    },
+    preloader: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff'
     }
 });

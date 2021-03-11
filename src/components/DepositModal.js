@@ -1,5 +1,5 @@
 import {Modal, Portal, Text, Button, Snackbar} from "react-native-paper";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {regexCheckDecimal, validateDecimal} from "../utils/decimal-check";
 import {Input} from "react-native-elements";
@@ -10,11 +10,15 @@ export const DepositModal = ({visible, setDepositVisible, amount}) => {
 
     const user = useContext(AuthContext)
 
-    const [depositAmount, setDepositAmount] = useState(amount)
+    const [depositAmount, setDepositAmount] = useState("0.00")
     const [isLoading, setLoading] = useState(false)
     const [snackBarVisible, setSnackBarVisible] = React.useState(false);
 
     const onDismissSnackBar = () => setSnackBarVisible(false);
+
+    useEffect(() => {
+        setDepositAmount(amount)
+    }, [amount])
 
     const deposit = async () => {
         try{

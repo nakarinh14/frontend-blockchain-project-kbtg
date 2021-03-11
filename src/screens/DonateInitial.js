@@ -65,7 +65,6 @@ export const DonateInitial = ({navigation, route}) => {
         }
     }
 
-
     return (
         <>
             <DismissKeyboard>

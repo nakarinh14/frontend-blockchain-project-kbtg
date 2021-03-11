@@ -1,7 +1,6 @@
 import React from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Button, Card, Paragraph, Title} from "react-native-paper";
-import TouchRipple from 'react-native-touch-ripple';
+import {Card, Paragraph, Title} from "react-native-paper";
 
 const data = [
     {
@@ -16,42 +15,30 @@ const data = [
     },
 ]
 
-export const OrgList = ({ navigation }) => {
+export const OrgList = ({navigation}) => {
     return (
-        <View style={{alignItems: 'center'}}>
-            <ScrollView>
+        <ScrollView>
+            <View style={{backgroundColor: '#fafafa'}}>
                 {
                     data && data.map((org, idx) => (
-                        <TouchableOpacity key={idx} onPress={() => navigation.push('IndividualOrg')}>
-                            <Card style={styles.orgCard} >
+                        <TouchableOpacity key={idx} onPress={() => navigation.push('Detail')}>
+                            <Card style={styles.orgCard}>
                                 <Card.Cover source={{uri: org.image}}/>
                                 <Card.Content>
                                     <Title>{org.title}</Title>
                                     <Paragraph>{org.paragraph}</Paragraph>
                                 </Card.Content>
-                                <Card.Actions style={{justifyContent: 'flex-end'}}>
-                                    <Button color='#01a74a'>See more</Button>
-                                </Card.Actions>
                             </Card>
                         </TouchableOpacity>
                     ))
                 }
-            </ScrollView>
-        </View>
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     orgCard: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-
-        elevation: 10,
         margin: 10,
     },
 });

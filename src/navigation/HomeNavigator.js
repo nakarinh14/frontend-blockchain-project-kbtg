@@ -9,15 +9,17 @@ import IndividualOrg from "../screens/IndividualOrg";
 const Stack = createStackNavigator();
 
 export const HomeNavigator = () => {
-
-    const user = useContext(AuthContext);
-
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="OrgList" component={OrgList}/>
-            <Stack.Screen name="IndividualOrg" component={IndividualOrg}/>
-            <Stack.Screen name="DonateInitial" component={DonateInitial}/>
-            <Stack.Screen name="DonateSuccess" component={DonateSuccess}/>
+        <Stack.Navigator
+            screenOptions={{
+                headerTitleStyle: {color:'black'},
+                headerTintColor: '#028544',
+            }}
+        >
+            <Stack.Screen name="Explore" component={OrgList}/>
+            <Stack.Screen name="Detail" component={IndividualOrg}/>
+            <Stack.Screen name="Donate" component={DonateInitial}/>
+            <Stack.Screen name="Success" component={DonateSuccess}/>
         </Stack.Navigator>
     )
 }

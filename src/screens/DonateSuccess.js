@@ -1,34 +1,44 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Share, StyleSheet, View} from "react-native";
+import {Alert, Linking, StyleSheet, View} from "react-native";
 import {Avatar, Button, Divider, Text} from "react-native-paper";
 import {ProfileContext} from "../context/ProfileContext";
-import {FIREBASE_STORAGE_BUCKET} from '@env'
-import * as WebBrowser from 'expo-web-browser';
 import firebase from "firebase";
 
-const fetchData = async (txId, setter) => {
+const fetchData = async (txId) => {
     try {
         const ref = firebase.storage().ref(`${txId}.pdf`)
-        const url = await ref.getDownloadURL()
-        setter(url)
+        return await ref.getDownloadURL()
     } catch (err) {
         console.log(err)
     }
+}
 
+const getReadableDate = (rawTimestamp) => {
+    const timestamp = new Date(rawTimestamp)
+    const front = `${timestamp.getFullYear()}-${timestamp.getMonth()+1}-${timestamp.getDate()}`
+    const back = `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`
+    return `${front}  ${back}`
 }
 
 export const DonateSuccess = ({route}) => {
     const {to, cause, amount, txId, timestamp} = route.params.data
-    const parsedTimestamp = new Date(timestamp);
+    const parsedTimestamp = getReadableDate(timestamp);
     const { getter } = useContext(ProfileContext)
     const {firstname, lastname} = getter
-    const [pdfUrl, setPdfUrl] = useState("")
 
-    useEffect( () => {
-        fetchData(txId, setPdfUrl)
-    },[])
-
-    const _handleOpenUrlAsync = () => WebBrowser.openBrowserAsync(pdfUrl);
+    const _handleOpenUrlAsync = async () => {
+        try{
+            const url = await fetchData(txId)
+            // Firebase got some delay fetching GCloud bucket object. Alert user about the delay
+            if(url){
+                await Linking.openURL(url)
+            } else {
+                Alert.alert("Certificate is being uploaded", "Please try again later")
+            }
+        } catch (err){
+            console.log(err)
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -40,7 +50,7 @@ export const DonateSuccess = ({route}) => {
                     <Text style={{fontSize: 23, fontWeight: '600'}}>Donation Success</Text>
                 </View>
                 <View style={{marginTop: 4}}>
-                    <Text style={{fontSize: 17}}>{timestamp}</Text>
+                    <Text style={{fontSize: 17}}>{parsedTimestamp}</Text>
                 </View>
 
             </View>

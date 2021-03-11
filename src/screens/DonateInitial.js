@@ -37,15 +37,11 @@ export const DonateInitial = ({navigation, route}) => {
     }
 
     const validateBalance = async () => {
-        try{
-            const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
-            const res = await axios.post(`${BACKEND_URL}/api/balance`, {
+        const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        const res = await axios.post(`${BACKEND_URL}/api/balance`, {
                 token_access: idToken,
-            })
-            return res.data.balance;
-        } catch (err){
-            console.log(err)
-        }
+        })
+        return res.data.balance;
     }
 
     const initiateDonation = async () => {
@@ -54,9 +50,8 @@ export const DonateInitial = ({navigation, route}) => {
             setDonationLoading(true)
             const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
             const balance = await validateBalance()
-            const parsedBalanced = parseFloat(donationAmount)
 
-            if(parseFloat(balance) < parsedBalanced) {
+            if(parseFloat(balance) < parseFloat(donationAmount)) {
                 setDonationLoading(false)
                 return triggerDeposit()
             }
@@ -71,8 +66,8 @@ export const DonateInitial = ({navigation, route}) => {
 
             return navigation.replace('Success', {data: res.data.result})
         } catch (err){
-            setDonationLoading(false)
             console.log(err)
+            setDonationLoading(false)
         }
     }
 

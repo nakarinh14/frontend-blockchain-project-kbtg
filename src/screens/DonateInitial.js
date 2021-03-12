@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, View} from "react-native";
+import {KeyboardAvoidingView, StyleSheet, View} from "react-native";
 import {Divider, Text, Button} from "react-native-paper";
 import { CheckBox } from 'react-native-elements'
 import {DismissKeyboard} from "../components/DismissKeyboard";
@@ -68,7 +68,11 @@ export const DonateInitial = ({navigation, route}) => {
     return (
         <>
             <DismissKeyboard>
-                <View style={styles.container}>
+                <KeyboardAvoidingView
+                    style={styles.container}
+                    enabled
+                    behavior={ Platform.OS === 'ios'? 'padding': 'height'}
+                >
                     <View style={styles.topSection}>
                         <View>
                             <Text style={{fontSize: 23, fontWeight: '600'}}>{data.to}</Text>
@@ -107,6 +111,8 @@ export const DonateInitial = ({navigation, route}) => {
                                     label='Amount'
                                     value={donationAmount}
                                     keyboardType={"decimal-pad"}
+                                    returnKeyLabel='Done'
+                                    returnKeyType='done'
                                     onChangeText={(text) => regexCheckDecimal(text, setDonationAmount)}
                                     rightIcon={
                                         <Text>TOKENS</Text>
@@ -131,7 +137,7 @@ export const DonateInitial = ({navigation, route}) => {
                             Confirm
                         </Button>
                     </View>
-                </View>
+                </KeyboardAvoidingView>
             </DismissKeyboard>
             <DepositModal
                 visible={depositVisible}

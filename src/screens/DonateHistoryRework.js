@@ -14,13 +14,13 @@ export const DonateHistoryRework = ({}) => {
 
     const fetchHistory = async () => {
         try{
-            setIsLoading(true)
+            setRefreshing(true)
             const res = await getTransactionHistory(user.uid)
             setData(res)
         } catch (err){
             console.log(err)
         } finally {
-            setIsLoading(false)
+            setRefreshing(false)
         }
 
     }
@@ -40,8 +40,7 @@ export const DonateHistoryRework = ({}) => {
 
     }
     useEffect(() => {
-        fetchHistory()
-        setRefreshing(false)
+        fetchHistory().finally(() => setIsLoading(false))
     }, [])
 
     if(isLoading){
@@ -60,6 +59,7 @@ export const DonateHistoryRework = ({}) => {
                     onRefresh={scrollRefresh}
                 />
             }
+            style={{backgroundColor: '#F5F5F5'}}
         >
             <View style={styles.container}>
                 {
@@ -106,10 +106,10 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#FAFAFA',
     },
     card: {
-        marginTop: 10,
+        marginBottom: 4,
         backgroundColor: '#F5F5F5',
         padding: 20
     },

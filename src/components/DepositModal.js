@@ -64,6 +64,8 @@ export const DepositModal = ({visible, setDepositVisible, amount}) => {
                         label='Amount'
                         defaultValue={depositAmount}
                         keyboardType={"decimal-pad"}
+                        returnKeyLabel='Done'
+                        returnKeyType='done'
                         onChangeText={(text) => regexCheckDecimal(text, setDepositAmount)}
                         leftIcon={
                             <Text>฿</Text>
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
         color: "#1976D2"
     },
     snackbar: {
-        backgroundColor: '#66BB6A',
+        backgroundColor: '#43A047',
         bottom: '20%'
     },
     info:{

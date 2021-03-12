@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator } from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
 import {ProfileContext} from "../context/ProfileContext";
 import {addProfileAPI} from "../utils/api";
 import {AuthContext} from "../context/AuthContext";
@@ -36,7 +36,11 @@ export const AddProfileScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            style={styles.container}
+            enabled
+            behavior={ Platform.OS === 'ios'? 'padding': 'height'}
+        >
             <TextInput
                 style={styles.inputStyle}
                 placeholder="First Name"
@@ -45,7 +49,7 @@ export const AddProfileScreen = () => {
             />
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Middle Name"
+                placeholder="Middle Name (Optional)"
                 value={middleName}
                 onChangeText={(val) => setMiddleName(val)}
             />
@@ -63,7 +67,7 @@ export const AddProfileScreen = () => {
             <Text>
                 {errorMessage}
             </Text>
-        </View>
+        </KeyboardAvoidingView>
     );
 
 }

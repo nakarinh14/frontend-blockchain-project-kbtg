@@ -36,21 +36,26 @@ export const AuthNavigator = () => {
 
     return (
         <ProfileContext.Provider value={profileData}>
-
-                {
-                    user && profile ? (
-                        <Main />
-                    ) : (
-                        <Stack.Navigator>
-                            <Stack.Screen name="Register" component={RegisterScreen} />
-                            <Stack.Screen name="Profile"
-                                          component={AddProfileScreen}
-                                          options={{ title: 'Add Profile' }}
-                            />
-                            <Stack.Screen name="Login" component={LoginScreen} />
-                        </Stack.Navigator>
-                    )
-                }
+            {
+                user && profile ? (
+                    <Main />
+                ) : (
+                    <Stack.Navigator
+                        screenOptions={{stackAnimation: 'fade'}}
+                    >
+                        <Stack.Screen name="Register" component={RegisterScreen} />
+                        <Stack.Screen
+                            name="Profile"
+                            component={AddProfileScreen}
+                            options={{
+                                title: 'Add Profile',
+                                replaceAnimation: 'push'
+                            }}
+                        />
+                        <Stack.Screen name="Login" component={LoginScreen} />
+                    </Stack.Navigator>
+                )
+            }
         </ProfileContext.Provider>
     )
 }

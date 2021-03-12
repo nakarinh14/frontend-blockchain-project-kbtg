@@ -54,6 +54,8 @@ export const DepositScreen = () => {
                     label='Amount'
                     value={depositAmount}
                     keyboardType={"decimal-pad"}
+                    returnKeyLabel='Done'
+                    returnKeyType='done'
                     onChangeText={(text) => regexCheckDecimal(text, setDepositAmount)}
                     leftIcon={
                         <Text>฿</Text>
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
         color: "#e3c800"
     },
     snackbar: {
-        backgroundColor: '#66BB6A',
+        backgroundColor: '#43A047',
         top: '90%'
     }
 });

@@ -1,18 +1,17 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, Dimensions} from 'react-native';
-import {Button, Divider} from 'react-native-paper'
-
+import {StyleSheet, View, Text, Image, ImageBackground, ScrollView, Dimensions} from 'react-native';
+import {Button} from 'react-native-paper'
+import images from "../images";
+import orgData from "../utils/orgs-data";
 
 const width = Dimensions.get('window').width
 
-const DisplayAnImage = ({navigation}) => {
-
-    const donate = (org, cause) => {
-        return navigation.push('Donate', {org, cause})
+const IndividualOrg = ({navigation, route}) => {
+    const {id} = route.params
+    const donate = (cause) => {
+        return navigation.push('Donate', {orgName, cause})
     }
-
-    const org = require('../Photos/org1.png');
-    const logo = require('../Photos/org1_log.png')
+    const orgName = orgData[id].title
 
     return (
         <ScrollView>
@@ -21,70 +20,54 @@ const DisplayAnImage = ({navigation}) => {
                     <ImageBackground
                         style={styles.image}
                         imageStyle={{opacity: 0.5}}
-                        source={org}
+                        source={images.background_img[id]}
                     >
                         <Image
                             style={styles.imageOrg}
-                            source={logo}
+                            source={images.logo[0]}
                         />
                     </ImageBackground>
                 </View>
                 <View style={styles.mainText}>
                     <Text style={styles.orgTitleText}>
-                        Charity Life
+                        {orgName}
                     </Text>
                     <Text style={styles.textStyle}>
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus velit nulla, feugiat ut erat
-                        et,
-                        tempor mattis tortor. Phasellus fringilla fermentum imperdiet. Quisque aliquam auctor erat, ac
-                        posuere ipsum gravida congue. Praesent luctus, quam in blandit tempor, dui nibh malesuada nulla,
-                        id rhoncus metus tortor quis justo
-                        tempor mattis tortor. Phasellus fringilla ferme
-                        tempor mattis tortor. Phasellus fringilla fermetempor mattis tortor. Phasellus fringilla ferme"
+                        {orgData[id].paragraph}
                     </Text>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <View style={styles.donationContainer}>
-                        <View style={{flex: 2}}>
-                            <Text style={{fontWeight: "600", fontSize: 18}}>
-                                Construction
-                            </Text>
-                        </View>
-                        <View style={{flex: 1}}>
-                            <Button
-                                icon="heart"
-                                mode="outlined"
-                                color="#EC407A"
-                                onPress={() => donate("Test Org", "General")}
+                    {
+                        orgData[id].causes.map((cause, idx) => (
+                            <View
+                                key={idx}
+                                style={styles.donationContainer}
                             >
-                                Donate
-                            </Button>
-                        </View>
-                    </View>
-                    <View style={styles.donationContainer}>
-                        <View style={{flex: 2}}>
-                            <Text style={{fontWeight: "600", fontSize: 18}}>
-                                Food
-                            </Text>
-                        </View>
-                        <View style={{flex: 1}}>
-                            <Button
-                                icon="heart"
-                                mode="outlined"
-                                color="#EC407A"
-                                onPress={() => donate("Test Org", "General")}
-                            >
-                                Donate
-                            </Button>
-                        </View>
-                    </View>
+                                <View style={{flex: 2}}>
+                                    <Text style={{fontWeight: "600", fontSize: 18}}>
+                                        {cause}
+                                    </Text>
+                                </View>
+                                <View style={{flex: 1}}>
+                                    <Button
+                                        icon="heart"
+                                        mode="outlined"
+                                        color="#EC407A"
+                                        onPress={() => donate(cause)}
+                                    >
+                                        Donate
+                                    </Button>
+                                </View>
+                            </View>
+                        ))
+                    }
                 </View>
             </View>
         </ScrollView>
     );
 }
 
-export default DisplayAnImage;
+export default IndividualOrg;
 const styles = StyleSheet.create({
     mainText: {
         padding: 15,
@@ -130,7 +113,8 @@ const styles = StyleSheet.create({
     },
     orgTitleText: {
         fontWeight: '800',
-        fontSize: 24,
-        marginBottom: 18
+        fontSize: 20,
+        marginBottom: 18,
+        textAlign: 'center', // <-- the magic
     }
 });

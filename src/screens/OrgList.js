@@ -1,33 +1,23 @@
 import React from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, Paragraph, Title} from "react-native-paper";
-
-const data = [
-    {
-        title: 'Organization 1',
-        paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        image: 'https://picsum.photos/id/273/200'
-    },
-    {
-        title: 'Organization 2',
-        paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        image: 'https://picsum.photos/id/238/200'
-    },
-]
+import orgData from "../utils/orgs-data";
+import images from "../images";
 
 export const OrgList = ({navigation}) => {
     return (
         <ScrollView>
             <View style={{backgroundColor: '#fafafa'}}>
                 {
-                    data && data.map((org, idx) => (
-                        <TouchableOpacity key={idx} onPress={() => navigation.push('Detail')}>
+                    orgData && orgData.map((org, idx) => (
+                        <TouchableOpacity key={idx} onPress={() => navigation.push('Detail', {id: idx})}>
                             <Card style={styles.orgCard}>
-                                <Card.Cover source={{uri: org.image}}/>
+                                <Card.Cover source={images.background_img[idx]}/>
                                 <Card.Content>
                                     <Title>{org.title}</Title>
                                     <Paragraph>{org.paragraph}</Paragraph>
                                 </Card.Content>
+                                <Card.Title subtitle={org.causes.join(" | ")}/>
                             </Card>
                         </TouchableOpacity>
                     ))

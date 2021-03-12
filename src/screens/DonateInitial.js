@@ -10,21 +10,13 @@ import {ProfileContext} from "../context/ProfileContext";
 import {donateAPI, getBalanceAPI} from "../utils/api";
 import {AuthContext} from "../context/AuthContext";
 
-
-const data = {
-    to: "Somchai Saemjit Charity",
-    timestamp: "20 Jan 2021  19:23:33" ,
-    amount: 300,
-    cause: "Roof Fixing"
-}
-
 export const DonateInitial = ({navigation, route}) => {
 
-    const {org, cause} = route.params;
+    const {orgName, cause} = route.params;
     const [donationAmount, setDonationAmount] = useState("0.00")
     const [donationLoading, setDonationLoading] = useState(false)
-    const [depositVisible, setDepositVisible] = React.useState(false);
-    const [checked, setChecked] = React.useState(true);
+    const [depositVisible, setDepositVisible] = useState(false);
+    const [checked, setChecked] = useState(true);
 
     const user = useContext(AuthContext)
     const { getter } = useContext(ProfileContext)
@@ -51,7 +43,7 @@ export const DonateInitial = ({navigation, route}) => {
             }
             // Else, proceed the donation process
             const idToken = await user.getIdToken(/* forceRefresh */ true)
-            const res = await donateAPI(idToken, donationAmount, org, cause, checked)
+            const res = await donateAPI(idToken, donationAmount, orgName, cause, checked)
             return navigation.replace('Success', {data: res})
         } catch (err){
             console.log(err)
@@ -75,7 +67,7 @@ export const DonateInitial = ({navigation, route}) => {
                 >
                     <View style={styles.topSection}>
                         <View>
-                            <Text style={{fontSize: 23, fontWeight: '600'}}>{data.to}</Text>
+                            <Text style={{fontSize: 19, fontWeight: '600'}}>{orgName}</Text>
                         </View>
                     </View>
                     <View style={styles.bottomSection}>
@@ -93,7 +85,7 @@ export const DonateInitial = ({navigation, route}) => {
                                 <Text style={styles.keyText}>To</Text>
                             </View>
                             <View>
-                                <Text style={styles.valText}>{data.to}</Text>
+                                <Text style={styles.valText}>{orgName}</Text>
                             </View>
                         </View>
                         <Divider />
@@ -102,7 +94,7 @@ export const DonateInitial = ({navigation, route}) => {
                                 <Text style={styles.keyText}>Cause</Text>
                             </View>
                             <View>
-                                <Text style={styles.valText}>{data.cause}</Text>
+                                <Text style={styles.valText}>{cause}</Text>
                             </View>
                         </View>
                         <Divider />
@@ -170,11 +162,11 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
     },
     keyText: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "500"
     },
     valText: {
-        fontSize: 18
+        fontSize: 16
     },
     keyView: {
         marginVertical: 13,

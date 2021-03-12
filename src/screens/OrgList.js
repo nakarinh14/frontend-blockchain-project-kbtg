@@ -1,17 +1,19 @@
 import React from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card, Paragraph, Title} from "react-native-paper";
 
 const data = [
     {
-        title: 'Organization 1',
-        paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        image: 'https://picsum.photos/id/273/200'
+        title: 'Bumrungrad International Hospital',
+        paragraph: 'Founded in 1980, Bumrungrad Hospital has been a global pioneer in providing world-class healthcare services and international patient support for nearly four decades. ',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/5/52/Thailand_Bangkok_Bumrungrad_International_Hospital_entrance-building.jpg',
+        donationCauses: 'Equipment, Research'
     },
     {
-        title: 'Organization 2',
-        paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        image: 'https://picsum.photos/id/238/200'
+        title: 'Thai Child Development Foundation',
+        paragraph: 'The TCDF supports by making sure that customized medical care and education is also available to children with disabilities, learning disorders or children from challenged families\'.',
+        image: 'https://media-exp1.licdn.com/dms/image/C4D1BAQGUHDdjYlv4yg/company-background_10000/0/1519800436997?e=2159024400&v=beta&t=U1kx21yKG1Arije6qpwRee9PpTMpUMYGKnkT2bQ_Tv4',
+        donationCauses: 'Construction, Clothing, Food'
     },
 ]
 
@@ -28,6 +30,7 @@ export const OrgList = ({navigation}) => {
                                     <Title>{org.title}</Title>
                                     <Paragraph>{org.paragraph}</Paragraph>
                                 </Card.Content>
+                                <Card.Title subtitle={org.donationCauses}/>
                             </Card>
                         </TouchableOpacity>
                     ))

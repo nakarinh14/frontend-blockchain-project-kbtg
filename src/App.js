@@ -8,6 +8,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import {AuthNavigator} from "./navigation/AuthNavigator";
 import {firebase} from "./firebase";
 import 'firebase/auth'
+import {OrgList} from "./screens/OrgList";
 
 export default function App() {
 
@@ -25,7 +26,7 @@ export default function App() {
             <StatusBar style="auto"/>
             <AuthContext.Provider value={user}>
                 <NavigationContainer>
-                    <AuthNavigator />
+                    <OrgList/>
                 </NavigationContainer>
             </AuthContext.Provider>
         </PaperProvider>

@@ -11,8 +11,8 @@ const fetchData = async (txId) => {
 
 const getReadableDate = (rawTimestamp) => {
     const timestamp = new Date(rawTimestamp)
-    const front = `${timestamp.getFullYear()}-${timestamp.getMonth()+1}-${timestamp.getDate()}`
-    const back = `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`
+    const front = timestamp.toLocaleDateString()
+    const back = timestamp.toLocaleTimeString()
     return `${front}  ${back}`
 }
 
@@ -40,13 +40,13 @@ export const DonateSuccess = ({route}) => {
         <View style={styles.container}>
             <View style={styles.topSection}>
                 <View style={{backgroundColor: 5}}>
-                    <Avatar.Icon size={50} icon="check-bold" backgroundColor='green'/>
+                    <Avatar.Icon size={60} icon="check-bold" backgroundColor='green'/>
                 </View>
-                <View style={{marginTop: 10}}>
-                    <Text style={{fontSize: 23, fontWeight: '600'}}>Donation Success</Text>
+                <View style={{marginTop: 15}}>
+                    <Text style={{fontSize: 22, fontWeight: '600'}}>Donation Success</Text>
                 </View>
-                <View style={{marginTop: 4}}>
-                    <Text style={{fontSize: 17}}>{parsedTimestamp}</Text>
+                <View style={{marginTop: 6}}>
+                    <Text style={{fontSize: 19}}>{parsedTimestamp}</Text>
                 </View>
 
             </View>
@@ -107,29 +107,27 @@ const styles = StyleSheet.create({
         flex: 1,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignContent: "center",
         padding: 35,
         backgroundColor: '#fff'
     },
     topSection:{
-        flex: 1,
+        marginBottom: 30,
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     bottomSection:{
-        flex: 4,
         flexDirection: "column",
         justifyContent: "flex-start",
-        marginTop: 50
     },
     keyText: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "500"
     },
     valText: {
-        fontSize: 18
+        fontSize: 16
     },
     keyView: {
         marginVertical: 10,

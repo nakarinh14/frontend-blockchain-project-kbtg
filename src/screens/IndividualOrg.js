@@ -24,7 +24,7 @@ const IndividualOrg = ({navigation, route}) => {
                     >
                         <Image
                             style={styles.imageOrg}
-                            source={images.logo[0]}
+                            source={images.logo[id]}
                         />
                     </ImageBackground>
                 </View>

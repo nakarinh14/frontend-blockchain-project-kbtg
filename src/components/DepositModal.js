@@ -1,6 +1,6 @@
 import {Modal, Portal, Text, Button, Snackbar} from "react-native-paper";
 import React, {useContext, useEffect, useState} from "react";
-import {StyleSheet, View} from "react-native";
+import {Alert, StyleSheet, View} from "react-native";
 import {regexCheckDecimal, validateDecimal} from "../utils/decimal-check";
 import {Input} from "react-native-elements";
 import {depositAPI} from "../utils/api";
@@ -35,8 +35,13 @@ export const DepositModal = ({visible, setDepositVisible, amount}) => {
     }
 
     const onClickDeposit = () => {
+        if(isLoading){
+            return
+        }
         if(validateDecimal(depositAmount)){
             return deposit()
+        } else {
+            return Alert.alert("Certificate is being uploaded", "Please try again later")
         }
     }
 

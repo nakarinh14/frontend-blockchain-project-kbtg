@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {KeyboardAvoidingView, StyleSheet, View} from "react-native";
+import {Alert, KeyboardAvoidingView, ScrollView, StyleSheet, View} from "react-native";
 import {Divider, Text, Button} from "react-native-paper";
 import { CheckBox } from 'react-native-elements'
 import {DismissKeyboard} from "../components/DismissKeyboard";
@@ -32,7 +32,6 @@ export const DonateInitial = ({navigation, route}) => {
     }
 
     const initiateDonation = async () => {
-
         try{
             setDonationLoading(true)
             // Validate balance, if not enough then initiate deposit modal
@@ -52,18 +51,23 @@ export const DonateInitial = ({navigation, route}) => {
     }
 
     const onClickDonate = () => {
-        if(validateDecimal(donationAmount)){
+        if(donationLoading){
+            return
+        }
+        if(validateDecimal(donationAmount) && parseFloat(donationAmount) > 0){
             return initiateDonation()
+        } else {
+            Alert.alert("Ops.", "Invalid donation amount")
         }
     }
 
     return (
         <>
             <DismissKeyboard>
-                <KeyboardAvoidingView
-                    style={styles.container}
-                    enabled
-                    behavior={ Platform.OS === 'ios'? 'padding': 'height'}
+                <ScrollView
+                    contentContainerStyle={styles.container}
+                    // enabled
+                    // behavior={ Platform.OS === 'ios'? 'padding': 'height'}
                 >
                     <View style={styles.topSection}>
                         <View>
@@ -129,7 +133,7 @@ export const DonateInitial = ({navigation, route}) => {
                             Confirm
                         </Button>
                     </View>
-                </KeyboardAvoidingView>
+                </ScrollView>
             </DismissKeyboard>
             <DepositModal
                 visible={depositVisible}

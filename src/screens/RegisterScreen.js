@@ -96,7 +96,7 @@ export const RegisterScreen = ({ navigation }) => {
             </Button>
             <Text
                 style={styles.loginText}
-                onPress={() => navigation.navigate('Login')}>
+                onPress={() => navigation.push('Login')}>
                 Already have an account? Login
             </Text>
         </KeyboardAvoidingView>

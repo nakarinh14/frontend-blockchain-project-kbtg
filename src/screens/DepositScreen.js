@@ -1,6 +1,6 @@
 import {Text, Button, Snackbar} from "react-native-paper";
 import React, {useContext, useState} from "react";
-import {ScrollView, StyleSheet, View} from "react-native";
+import {Alert, ScrollView, StyleSheet, View} from "react-native";
 import {regexCheckDecimal, validateDecimal} from "../utils/decimal-check";
 import {Input} from "react-native-elements";
 import {depositAPI} from "../utils/api";
@@ -30,8 +30,13 @@ export const DepositScreen = () => {
     }
 
     const onClickDeposit = () => {
-        if(validateDecimal(depositAmount)){
+        if(isLoading){
+            return
+        }
+        if(validateDecimal(depositAmount) && parseFloat(depositAmount) > 0){
             return deposit()
+        } else{
+            Alert.alert("Ops.", "Invalid donation amount")
         }
     }
 

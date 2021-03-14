@@ -65,6 +65,7 @@ export const DonateHistoryRework = ({}) => {
                 {
                     data.map((item, idx) => {
                         const parsedTimestamp = new Date(item.timestamp)
+                        const tax_reduced = JSON.parse(item.data.tax_reduction)
                         return (
                             <View key={`row-${idx}`} style={styles.card}>
                                 <Text style={styles.timestampText}>
@@ -86,11 +87,11 @@ export const DonateHistoryRework = ({}) => {
                                     <Chip
                                         mode='flat'
                                         icon="information"
-                                        selectedColor={item.data.tax_reduction ? '#0277BD' : '#FF9800'}
+                                        selectedColor={tax_reduced ? '#0277BD' : '#FF9800'}
                                         textStyle={{fontSize: 12}}
-                                        onPress={() => onPressChip(item.txId)}
+                                        onPress={() => tax_reduced ? onPressChip(item.txId) : null}
                                     >
-                                        {item.data.tax_reduction ? 'Tax-deductible' : 'Non tax-deductible'}
+                                        {tax_reduced ? 'Tax-deductible' : 'Non tax-deductible'}
                                     </Chip>
                                 </View>
                             </View>

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Alert, Linking, StyleSheet, View} from "react-native";
+import {Alert, Linking, ScrollView, StyleSheet, View} from "react-native";
 import {Avatar, Button, Divider, Text} from "react-native-paper";
 import {ProfileContext} from "../context/ProfileContext";
 import firebase from "firebase";
@@ -17,7 +17,7 @@ const getReadableDate = (rawTimestamp) => {
 }
 
 export const DonateSuccess = ({route}) => {
-    const {to, cause, amount, txId, timestamp} = route.params.data
+    const {to, cause, amount, txId, timestamp, tax_reduction} = route.params.data
     const parsedTimestamp = getReadableDate(timestamp);
     const { getter } = useContext(ProfileContext)
     const {firstname, lastname} = getter
@@ -37,7 +37,7 @@ export const DonateSuccess = ({route}) => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.topSection}>
                 <View style={{backgroundColor: 5}}>
                     <Avatar.Icon size={60} icon="check-bold" backgroundColor='green'/>
@@ -93,11 +93,12 @@ export const DonateSuccess = ({route}) => {
                     color='darkblue'
                     icon='share-variant'
                     onPress={_handleOpenUrlAsync}
+                    disabled={!JSON.parse(tax_reduction)}
                 >
                     Share
                 </Button>
             </View>
-        </View>
+        </ScrollView>
 
     )
 }

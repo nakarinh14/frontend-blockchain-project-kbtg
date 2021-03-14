@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import {StyleSheet, Text, View, Alert, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
+import { Button } from 'react-native-paper'
 import { firebase } from "../firebase";
 import 'firebase/auth'
+import {Input} from "react-native-elements";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export const LoginScreen = ({ navigation }) => {
 
@@ -35,29 +38,63 @@ export const LoginScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Email"
-                value={email}
-                onChangeText={(val) => setEmail(val)}
-            />
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Password"
-                value={password}
-                onChangeText={(val) => setPassword(val)}
-                secureTextEntry={true}
-            />
-            <Button
-                color="#3740FE"
-                title="Sign In"
-                onPress={signIn}
-            />
-            <Text>
-                {errorMessage}
-            </Text>
-        </View>
+        <KeyboardAvoidingView
+            style={styles.container}
+            enabled
+            behavior={ Platform.OS === 'ios'? 'padding': 'height'}
+        >
+            <View style={styles.container}>
+                <Input
+                    label="Email"
+                    placeholder='yours@example.com'
+                    textContentType='emailAddress'
+                    keyboardType="email-address"
+                    autoCompleteType="email"
+                    returnKeyType="next"
+                    inputStyle={styles.inputTextStyle}
+                    value={email}
+                    leftIcon={
+                        <Icon
+                            name='mail'
+                            size={16}
+                            color='grey'
+                        />
+                    }
+                    onChangeText={(val) => setEmail(val)}
+                    autoCapitalize='none'
+                />
+                <Input
+                    label="Password"
+                    placeholder='Enter password'
+                    textContentType='newPassword'
+                    returnKeyType="done"
+                    value={password}
+                    inputStyle={styles.inputTextStyle}
+                    autoCorrect={false}
+                    leftIcon={
+                        <Icon
+                            name='lock-closed'
+                            size={16}
+                            color='grey'
+                        />
+                    }
+                    onChangeText={(val) => setPassword(val)}
+                    secureTextEntry={true}
+                    autoCapitalize='none'
+                />
+                <Button
+                    style={{alignSelf: 'stretch'}}
+                    mode='contained'
+                    color="#1976D2"
+                    onPress={signIn}
+                >
+                    Sign Up
+                </Button>
+                <Text>
+                    {errorMessage}
+                </Text>
+            </View>
+        </KeyboardAvoidingView>
     );
 
 }
@@ -68,16 +105,13 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: 35,
+        alignItems: 'center',
+        padding: 30,
         backgroundColor: '#fff'
     },
-    inputStyle: {
-        width: '100%',
-        marginBottom: 15,
-        paddingBottom: 15,
-        alignSelf: "center",
-        borderColor: "#ccc",
-        borderBottomWidth: 1
+    inputTextStyle:{
+        fontSize: 16,
+        marginLeft: 10
     },
     loginText: {
         color: '#3740FE',

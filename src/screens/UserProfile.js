@@ -50,7 +50,7 @@ export const UserProfile = ({ navigation }) => {
         >
             <View>
                 <View style={styles.innerContainer}>
-                    <Image source={{uri: 'https://i.pinimg.com/originals/4c/9d/a8/4c9da86f313fa066b1184309532373a9.jpg'}} style={styles.profilePic}/>
+                    <Image source={{uri: 'https://ratemystation.com/wp-content/uploads/2020/03/review-news-director-male-local-tv-newsroom.jpg'}} style={styles.profilePic}/>
                     <Text style={{fontSize: 23, fontWeight: '600'}}>{fullName}</Text>
                     <Text style={{marginTop: 10}}>{user.email}</Text>
                 </View>
